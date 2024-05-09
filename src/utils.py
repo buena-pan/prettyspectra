@@ -4,6 +4,7 @@ import os
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import chart_studio.plotly as py
+import sys
 
 def load_json_file(filename):
     # Open the JSON file for reading
@@ -145,9 +146,9 @@ def get_subplot_names(IF_number):
     return names
 
 if __name__ == "__main__":
-    json_path_ref = os.path.abspath("resources/random_normal/Strategy_optimized4_FDM_test_result_ref.json")
-    json_path_test = os.path.abspath("resources/random_normal/Strategy_optimized6_FDM_test_result_test.json")
-    json_path_metrics = os.path.abspath("resources/random_normal/cmp_metrics.json")
+    json_path_ref = os.path.abspath(sys.argb[1])
+    json_path_test = os.path.abspath(sys.argv[2])
+    json_path_metrics = os.path.abspath(sys.argv[3])
     print(json_path_ref)
     print(json_path_test)
     json_result_ref = load_json_file(json_path_ref)
