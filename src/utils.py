@@ -146,9 +146,18 @@ def get_subplot_names(IF_number):
     return names
 
 if __name__ == "__main__":
-    json_path_ref = os.path.abspath(sys.argb[1])
-    json_path_test = os.path.abspath(sys.argv[2])
-    json_path_metrics = os.path.abspath(sys.argv[3])
+    ## Wrong results from 0 delay
+    #json_path_ref = os.path.abspath("resources/all_impl/Strategy_optimized4_result_ref.json")
+    #json_path_test = os.path.abspath("resources/all_impl/Strategy_optimized6_result_ref.json")
+    #json_path_metrics = os.path.abspath("resources/random_normal/cmp_metrics.json")
+    ## all random normal input
+    json_path_ref = os.path.abspath("resources/all_random_delay_fix/StrategyOptimized4_results.json")
+    json_path_test = os.path.abspath("resources/all_random_delay_fix/StrategyOptimized6_results.json")
+    json_path_metrics = os.path.abspath("resources/all_random_delay_fix/cmp_metrics.json")
+    ## sine 1 ghz experiment
+    #json_path_test = os.path.abspath("resources/sine1ghz_delay_fixed/Strategy_optimized4_result_ref.json")
+    #json_path_ref = os.path.abspath("resources/sine1ghz_delay_fixed/Strategy_optimized6_result_ref.json")
+    #json_path_metrics = os.path.abspath("resources/random_normal/cmp_metrics.json")
     print(json_path_ref)
     print(json_path_test)
     json_result_ref = load_json_file(json_path_ref)
@@ -165,6 +174,7 @@ if __name__ == "__main__":
     col_n = 6
     fig = make_subplots(rows=row_n, cols=col_n)
     count = 0
+    """
     for baseline in spectras_ref:
         print(count)
         IFA = int(baseline.split("-")[0].replace("A",""))
@@ -175,7 +185,7 @@ if __name__ == "__main__":
             count+=1
     # Show the figure
     fig.show()
-
+    """
     itg_figs = []
     subplot_titles_figs = []
     IF_number = get_IF_number(json_result_test)
@@ -194,7 +204,7 @@ if __name__ == "__main__":
                     try:
                         k = json_result_metrics['data'][b_fixed][w][p]['cross']['TP(A)/TP(B)'][i]
                         k = np.sqrt(k)
-                        print(k)
+                        print(1/k)
                     except:
                         k = 1 
                         print("no scaling factor found")
@@ -208,7 +218,6 @@ if __name__ == "__main__":
                     subplot_titles_figs[i].append("IF{} - IF{}".format(A,B))
                     #add_bdplot_2_fig(itg_figs[i], spectras_test_list[b][w][p][i], row= IF_number-A+1, col= IF_number-B +1 )
         if len(spectras_ref_list[b]):
-            print( "dd")
             b_fixed+=1
     
     itg_figs[0].update_layout(
@@ -223,9 +232,12 @@ if __name__ == "__main__":
         }
     }
 )
-    itg_figs[0].show()
+    #itg_figs[0].show()
+    itg_figs[1].show()
+    #itg_figs[5].show()
+
     
 #    for figure in itg_figs:
 #        figure.show()
 
-    print (py.iplot(itg_figs[0]))
+   # print (py.iplot(itg_figs[0]))
