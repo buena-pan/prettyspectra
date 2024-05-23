@@ -151,13 +151,13 @@ if __name__ == "__main__":
     #json_path_test = os.path.abspath("resources/all_impl/Strategy_optimized6_result_ref.json")
     #json_path_metrics = os.path.abspath("resources/random_normal/cmp_metrics.json")
     ## all random normal input
-    json_path_ref = os.path.abspath("resources/all_random_delay_fix/StrategyOptimized4_results.json")
-    json_path_test = os.path.abspath("resources/all_random_delay_fix/StrategyOptimized6_results.json")
-    json_path_metrics = os.path.abspath("resources/all_random_delay_fix/cmp_metrics.json")
+    #json_path_ref = os.path.abspath("resources/20240523_strategy4-6/StrategyFixtureTruth1GhzSin_StrategyOptimized4_results.json")
+    #json_path_test = os.path.abspath("resources/20240523_strategy4-6/StrategyFixtureTruth1GhzSin_StrategyOptimized6_results.json")
+    #json_path_metrics = os.path.abspath("resources/20240523_strategy4-6/StrategyFixtureTruth1GhzSin_cmp-metrics.json")
     ## sine 1 ghz experiment
-    #json_path_test = os.path.abspath("resources/sine1ghz_delay_fixed/Strategy_optimized4_result_ref.json")
-    #json_path_ref = os.path.abspath("resources/sine1ghz_delay_fixed/Strategy_optimized6_result_ref.json")
-    #json_path_metrics = os.path.abspath("resources/random_normal/cmp_metrics.json")
+    json_path_ref = os.path.abspath("resources/20240523_strategy4-6/StrategyFixtureRandom_StrategyOptimized4_results.json")
+    json_path_test = os.path.abspath("resources/20240523_strategy4-6/StrategyFixtureRandom_StrategyOptimized6_results.json")
+    json_path_metrics = os.path.abspath("resources/20240523_strategy4-6/StrategyFixtureRandom_cmp-metrics.json")
     print(json_path_ref)
     print(json_path_test)
     json_result_ref = load_json_file(json_path_ref)
@@ -204,7 +204,8 @@ if __name__ == "__main__":
                     try:
                         k = json_result_metrics['data'][b_fixed][w][p]['cross']['TP(A)/TP(B)'][i]
                         k = np.sqrt(k)
-                        print(1/k)
+                        print(k)
+                        k=1
                     except:
                         k = 1 
                         print("no scaling factor found")
@@ -232,7 +233,7 @@ if __name__ == "__main__":
         }
     }
 )
-    #itg_figs[0].show()
+    itg_figs[0].show()
     itg_figs[1].show()
     #itg_figs[5].show()
 
