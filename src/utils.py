@@ -61,13 +61,14 @@ def add_bdplot_2_fig(fig, response, row, col, name, scale = 1, color_ = ''):
 
 def from_json_result_to_flatten_dict(json_file):
     number_of_if = len (json_file['array']['sis'])
-    print ("number of IF: " + str(number_of_if))
+    #print ("number of IF: " + str(number_of_if))
     flat_dict_results = {}
     b = 0
     for baseline in json_file['data']:
         w = 0
         if baseline ==  None:
-            print("redundant baseline ")
+            pass
+            #print("redundant baseline ")
         else:
             for window in baseline:
                 p = 0
@@ -89,12 +90,13 @@ def from_json_result_to_flatten_dict(json_file):
 
 def from_json_result_to_nested_list(json_file):
     number_of_if = len (json_file['array']['sis'])
-    print ("number of IF: " + str(number_of_if))
+    #print ("number of IF: " + str(number_of_if))
     b = []
     for baseline in json_file['data']:
         w = []
         if baseline ==  None:
-            print("redundant baseline ")
+            pass
+            #print("redundant baseline ")
         else:
             for window in baseline:
                 p = []
@@ -155,9 +157,38 @@ if __name__ == "__main__":
     #json_path_test = os.path.abspath("resources/20240523_strategy4-6/StrategyFixtureTruth1GhzSin_StrategyOptimized6_results.json")
     #json_path_metrics = os.path.abspath("resources/20240523_strategy4-6/StrategyFixtureTruth1GhzSin_cmp-metrics.json")
     ## sine 1 ghz experiment
-    json_path_ref = os.path.abspath("resources/20240523_strategy4-6/StrategyFixtureRandom_StrategyOptimized4_results.json")
-    json_path_test = os.path.abspath("resources/20240523_strategy4-6/StrategyFixtureRandom_StrategyOptimized6_results.json")
-    json_path_metrics = os.path.abspath("resources/20240523_strategy4-6/StrategyFixtureRandom_cmp-metrics.json")
+    #json_path_ref = os.path.abspath("resources/20240523_strategy4-6/StrategyFixtureRandom_StrategyOptimized4_results.json")
+    #json_path_test = os.path.abspath("resources/20240523_strategy4-6/StrategyFixtureRandom_StrategyOptimized6_results.json")
+    #json_path_metrics = os.path.abspath("resources/20240523_strategy4-6/StrategyFixtureRandom_cmp-metrics.json")
+
+    #json_path_ref = os.path.abspath("resources/20240523_strategy4-6/StrategyFullRandomNormal_StrategyOptimized4_results.json")
+    #json_path_test = os.path.abspath("resources/20240523_strategy4-6/StrategyFullRandomNormal_StrategyOptimized6_results.json")
+    #json_path_metrics = os.path.abspath("resources/20240523_strategy4-6/StrategyFullRandomNormal_cmp-metrics.json")
+
+    #json_path_ref = os.path.abspath("resources/multi_spectral_w_test/StrategyFixtureRandom_StrategyOptimized4_results.json")
+    #json_path_test = os.path.abspath("resources/multi_spectral_w_test/StrategyFixtureRandom_StrategyOptimized6_results.json")
+    #json_path_metrics = os.path.abspath("resources/multi_spectral_w_test/StrategyFixtureRandom_cmp-metrics.json")
+
+    #json_path_ref = os.path.abspath("resources/progressive_channels/StrategyFixtureRandom_progressive_channels_StrategyOptimized5_results.json")
+    #json_path_test = os.path.abspath("resources/progressive_channels/StrategyFixtureRandom_progressive_channels_StrategyOptimized6_results.json")
+    #json_path_metrics = os.path.abspath("resources/progressive_channels/StrategyFixtureRandom_progressive_channels_cmp-metrics.json")
+
+    #json_path_ref = os.path.abspath("resources/str3-5_QC_test/StrategyFixtureRandom_progressive_channels_StrategyOptimized3_results.json")
+    #json_path_test = os.path.abspath("resources/str3-5_QC_test/StrategyFixtureRandom_progressive_channels_StrategyOptimized5_results.json")
+    #json_path_metrics = os.path.abspath("resources/str3-5_QC_test/StrategyFixtureRandom_progressive_channels_cmp-metrics.json")
+
+    json_path_ref = os.path.abspath("resources/str3-5_test_whole_sum/StrategyFixtureRandom_progressive_channels_StrategyOptimized3_results.json")
+    json_path_test = os.path.abspath("resources/str3-5_test_whole_sum/StrategyFixtureRandom_progressive_channels_StrategyOptimized5_results.json")
+    json_path_metrics = os.path.abspath("resources/str3-5_test_whole_sum/StrategyFixtureRandom_progressive_channels_cmp-metrics.json")
+
+    json_path_ref = os.path.abspath("resources/TDM_progressive/StrategyFixtureRandomUniform_progressive_channels_StrategyOptimized4_results.json")
+    json_path_test = os.path.abspath("resources/TDM_progressive/StrategyFixtureRandomUniform_progressive_channels_StrategyOptimized6_results.json")
+    json_path_metrics = os.path.abspath("resources/TDM_progressive/StrategyFixtureRandomUniform_progressive_channels_cmp-metrics.json")
+
+    #json_path_ref = os.path.abspath("resources/progressive_channel_str3-6/StrategyFixtureRandom_progressive_channels_StrategyOptimized3_results.json")
+    #json_path_test = os.path.abspath("resources/progressive_channel_str3-6/StrategyFixtureRandom_progressive_channels_StrategyOptimized6_results.json")
+    #json_path_metrics = os.path.abspath("resources/progressive_channel_str3-6/StrategyFixtureRandom_progressive_channels_cmp-metrics.json")
+
     print(json_path_ref)
     print(json_path_test)
     json_result_ref = load_json_file(json_path_ref)
@@ -186,56 +217,68 @@ if __name__ == "__main__":
     # Show the figure
     fig.show()
     """
-    itg_figs = []
-    subplot_titles_figs = []
-    IF_number = get_IF_number(json_result_test)
-    sub_plot_names = get_subplot_names(IF_number)
-    b_fixed = 0
-    for b in range(len(spectras_ref_list)):
-        for w in range (len(spectras_ref_list[b])):
-            for p in range (len(spectras_ref_list[b][w])):
-                for i in range (len(spectras_ref_list[b][w][p])):
-                    if len(itg_figs)<=i:
-                        figure = go.Figure(make_subplots(rows = (IF_number+1)*2, cols = IF_number,subplot_titles=sub_plot_names))
-                        fig.update_layout(title="w{}-i{}".format(w,i))
-                        itg_figs.append(figure)
-                        subplot_titles_figs.append([])
-                    A,B = get_IF_tuple(b,IF_number)
-                    try:
-                        k = json_result_metrics['data'][b_fixed][w][p]['cross']['TP(A)/TP(B)'][i]
-                        k = np.sqrt(k)
-                        print(k)
-                        k=1
-                    except:
-                        k = 1 
-                        print("no scaling factor found")
-                    if p:
-                        add_bdplot_2_fig(itg_figs[i], spectras_ref_list[b][w][p][i] , A, B, 'ref', color_ = 'red')
-                        add_bdplot_2_fig(itg_figs[i], spectras_test_list[b][w][p][i], A, B, 'tst', scale = k ,color_ = 'orange')
-                    else:
-                        add_bdplot_2_fig(itg_figs[i], spectras_ref_list[b][w][p][i], IF_number-A, IF_number-B -1, 'ref', color_= 'blue')
-                        add_bdplot_2_fig(itg_figs[i], spectras_test_list[b][w][p][i], IF_number-A, IF_number-B -1 , 'tst', scale = k, color_= 'aqua' )
-                        pass
-                    subplot_titles_figs[i].append("IF{} - IF{}".format(A,B))
-                    #add_bdplot_2_fig(itg_figs[i], spectras_test_list[b][w][p][i], row= IF_number-A+1, col= IF_number-B +1 )
-        if len(spectras_ref_list[b]):
-            b_fixed+=1
-    
-    itg_figs[0].update_layout(
-    title={
-        'text': 'Integration 0 - orange/red X pol - blut/sky Y pol - amp shows the scaling factor',
-        'x': 0.5,  # Center the title
-        'xanchor': 'center',
-        'yanchor': 'top',
-        'font': {
-            'size': 24,
-            'color': 'black'
-        }
-    }
-)
-    itg_figs[0].show()
-    itg_figs[1].show()
-    #itg_figs[5].show()
+
+    for index in range(4):
+        w_fixed = index
+        itg_figs = []
+        subplot_titles_figs = []
+        IF_number = get_IF_number(json_result_test)
+        sub_plot_names = get_subplot_names(IF_number)
+        b_fixed = 1
+        P_desired = [0,1]
+        for b in range(len(spectras_ref_list)):
+            #for w in range (len(spectras_ref_list[b])):# workaorund for multiple windows
+            if len(spectras_ref_list[b]):
+                w = w_fixed
+                next_p = 0
+                #for p in range (len(spectras_ref_list[b][w])):
+                if len(spectras_ref_list[b][w]) == 0:
+                    break
+                for p in P_desired:
+                    for i in range (len(spectras_ref_list[b][w][p])):
+                        if len(itg_figs)<=i:
+                            figure = go.Figure(make_subplots(rows = (IF_number+1)*2, cols = IF_number,subplot_titles=sub_plot_names))
+                            fig.update_layout(title="w{}-i{}".format(w,i))
+                            itg_figs.append(figure)
+                            subplot_titles_figs.append([])
+                        A,B = get_IF_tuple(b,IF_number)
+                        try:
+                            k = json_result_metrics['data'][b][w][p]['cross']['TP(A)/TP(B)'][i]
+                            k = np.sqrt(k)
+                            print(k)
+                            k = 1 
+                        except:
+                            k = 1 
+                            print("no scaling factor found")
+                        if next_p:
+                            add_bdplot_2_fig(itg_figs[i], spectras_ref_list[b][w][p][i] , A, B, 'ref', color_ = 'red')
+                            add_bdplot_2_fig(itg_figs[i], spectras_test_list[b][w][p][i], A, B, 'tst', scale = k ,color_ = 'orange')
+                        else:
+                            add_bdplot_2_fig(itg_figs[i], spectras_ref_list[b][w][p][i], IF_number-A, IF_number-B -1, 'ref', color_= 'blue')
+                            add_bdplot_2_fig(itg_figs[i], spectras_test_list[b][w][p][i], IF_number-A, IF_number-B -1 , 'tst', scale = k, color_= 'aqua' )
+                            pass
+                        subplot_titles_figs[i].append("IF{} - IF{}".format(A,B))
+                        #add_bdplot_2_fig(itg_figs[i], spectras_test_list[b][w][p][i], row= IF_number-A+1, col= IF_number-B +1 )
+                    next_p = 1
+            if len(spectras_ref_list[b]):
+                b_fixed+=1
+        
+        for i in range (16):
+            itg_figs[i].update_layout(
+            title={
+                'text': 'Integration 7 - orange/red X pol - blut/sky Y pol - amp shows the scaling factor',
+                'x': 0.5,  # Center the title
+                'xanchor': 'center',
+                'yanchor': 'top',
+                'font': {
+                    'size': 24,
+                    'color': 'black'
+                }
+            }
+    )
+        itg_figs[0].show()
+        #itg_figs[1].show()
+        #itg_figs[5].show()
 
     
 #    for figure in itg_figs:
